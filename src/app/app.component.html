@@ -1,0 +1,48 @@
+<div class="container">
+  <h1> My TODO List APP </h1>
+  <div class="input-field">
+    <mat-form-field class="example-form-field">
+      <mat-label> Yeni Task </mat-label>
+      <input matInput type="text" [(ngModel)]="newTask.name">
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="addTask()"> Task Ekle</button>
+  </div>
+
+  <h1>Title</h1>
+  <div class="buttons">
+    <button mat-flat-button color="primary" (click)="allTasks()">All</button>
+    <button mat-flat-button color="primary" (click)="doneTasks()">Done</button>
+    <button mat-flat-button color="primary" (click)="toDoTasks()">ToDo</button>
+  </div>
+
+  @for( task of viewList; track task)
+  {
+  <div class="task-field">
+    @if(isEditMode && selectedIndex)
+    {
+      <mat-form-field>
+        <mat-label></mat-label>
+      </mat-form-field>
+    }
+    <div> {{task.name}} </div>
+    <div class="icons">
+      <mat-checkbox (change)="statusChange(task)" [checked]="task.status">
+        <mat-icon (click)="editTask($index)">edit</mat-icon>
+        <mat-icon (click)="deleteTask($index)">delete</mat-icon>
+      </mat-checkbox>
+    </div>
+  </div>
+  }
+
+  @empty()
+  {
+
+  <div class="empty"> Görüntülenecek Task Yok </div>
+  }
+
+  <div class="bottom-buttons">
+    <button mat-flat-button color="warn" (click)="deleteDoneTasks()">Delete Done Task</button>
+    <button mat-flat-button color="warn">Delete All Task</button>
+  </div>
+
+</div>
